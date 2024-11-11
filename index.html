@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swipe Sync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+
+    .detailscontainer {
+        background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.785));
+    }
+
+    .super-like-animation {
+        z-index: 99;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        opacity: 0;
+        color: #ffffff;
+        animation: superLikeAnim 2s forwards;
+    }
+
+    @keyframes superLikeAnim {
+        0% {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+        100% {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+    }
+</style>
+
+<body>
+    <div id="desktopWarning" class="hidden overlay fixed w-screen h-screen bg-black text-white flex items-center justify-center text-center p-15 text-xl z-50">
+        <p class="font-semibold text-lg uppercase px-4">Whoops! It looks like you're on a desktop device. The Dating site is designed to work its magic only on mobile, <br>At this point.<br><br>No hard feelings, just switch over for a better experience and better partner 😉.</p>
+    </div>
+
+    <div id="mainContent" class="w-full h-screen bg-black font-['Nunito Sans']">
+        <div class="imagecontainer w-full h-screen relative overflow-hidden">
+            <div class="maincard w-[130%] h-[130%] absolute z-[3] top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                <img class="w-full h-full object-cover" src="" alt="main img">
+            </div>
+            <div class="incoming w-[130%] z-[2] h-[130%] absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                <img class="w-full h-full object-cover" src="" alt="inc img">
+            </div>
+        </div>
+
+        <div class="absolute top-0 left-0 z-[4] w-full h-screen flex flex-col justify-between">
+            <div class="navbar flex justify-between items-center text-white px-5 py-4">
+                <div class="profile-img w-[3.2rem] h-[3.2rem] rounded-full overflow-hidden">
+                    <img class="w-full h-full object-cover" src="" alt="profile-img">
+                </div>
+                <h3 class="capitalize font-medium text-xl tracking-tight">They like you.</h3>
+                <div class="chaticon w-[3rem] h-[3rem] bg-white/20 rounded-full flex justify-center items-center relative">
+                    <i class="ri-chat-thread-fill text-xl"></i>
+                    <div class="badge absolute w-5 h-5 bg-[#FC5149] flex justify-center items-center top-0 right-0 -translate-y-[5px] translate-x-[3px] rounded-full">
+                        <h5 class="text-[13px] font-[400]"></h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detailscontainer w-full">
+                <div class="details w-full px-4 py-5 ">
+                    <div class="element location flex gap-4">
+                        <i class="ri-corner-left-up-line w-[1.6rem] h-[1.6rem] bg-white flex items-center justify-center rounded-full font-semibold"></i>
+                        <h3 class="text-white" id="userLocation"></h3>
+                    </div>
+                    <div class="element name flex gap-5 text-white mt-6">
+                        <h1 class="text-5xl font-regular tracking-tighter" id="userName"></h1>
+                        <h1 class="age text-4xl opacity-70 font-regular tracking-tighter flex-end" id="userAge"></h1>
+                        <h3 class="match-percentage text-2xl text-green-400 ml-0"></h3>
+                    </div>
+
+                    <div class="element tags flex gap-3 text-white mt-2">
+                        <div class="tag flex items-center bg-white/30 px-3 py-1 rounded-full gap-3">
+                            <i class="ri-instagram-line text-m"></i>
+                            <h3 class="tracking-tighter text-sm text-white font-medium">Instagram</h3>
+                        </div>
+                        <div class="tag flex items-center bg-white/30 px-3 py-1 rounded-full gap-3">
+                            <i class="ri-tiktok-fill text-m"></i>
+                            <h3 class="tracking-tighter text-sm text-white font-medium">Tik Tok</h3>
+                        </div>
+                        <div class="tag flex items-center bg-white/30 px-3 py-1 rounded-full gap-3">
+                            <i class="ri-snapchat-line text-m"></i>
+                            <h3 class="tracking-tighter text-sm text-white font-medium">Snapchat</h3>
+                        </div>
+                    </div>
+                    <div class="element bio text-white/80 mt-7">
+                        <p class="text-sm mt-1 text-white font-medium" id="userBio"></p>
+                    </div>
+                    <div class="element flex items-start mt-8 gap-7">
+                        <button class="deny py-2 font-semibold bg-white w-1/2 rounded-xl"><i class="text-3xl ri-close-line"></i></button>
+                        <button class="accept py-2 font-semibold bg-[#FC5149] w-1/2 rounded-xl text-white"><i class="text-3xl ri-heart-2-fill"></i></button>
+                        <button class="super-like py-2 font-semibold bg-blue-500 w-1/2 rounded-xl text-white"><i class="text-3xl ri-star-fill"></i></button>
+                        <button class="undo py-2 font-semibold bg-yellow-500 w-1/2 rounded-xl text-white"><i class="text-3xl ri-arrow-go-back-line"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="superLikeAnimation" class="super-like-animation hidden">Super Choice ★</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+</html>
